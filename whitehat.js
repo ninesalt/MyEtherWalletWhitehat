@@ -116,12 +116,17 @@ var sendRequest = function(name,method,url,contenttype,data,ignorestatuscode) {
             log(totalRequests+requests);
 		}
 		else if(error) {
-			log('Error: ' + error + ' for ' + name, true, true);
+			if(error.toString().indexOf('Error: ') !== -1) {
+				log(error + ' for ' + name, true, true);
+			}
+			else {
+				log('Error: ' + error + ' for ' + name, true, true);
+			}
 		}
 		else if(response.statusCode == 429) { // Too Many Requests
 			if(!timeout) {
 				timeout = true;
-				log('Error: Too many requests for ' + name + ' (Try lowering interval if the error persists)', true, true);
+				log('Error: Too many requests for ' + name + ' (Try raising the interval if the error persists)', true, true);
 				setTimeout(function() { timeout = false; },2000);
 			}
 		}
