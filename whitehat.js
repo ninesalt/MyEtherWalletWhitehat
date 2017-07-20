@@ -9,6 +9,7 @@ var fakes = require('./data.json');
 /*  Declare variables  */
 var totalRequests = 0;
 var requests = 0;
+var timeout = false;
 var username = os.userInfo().username || 'user';
 var deviceID = crypto.createHash('sha1').update(os.hostname()).digest('hex');
 var nodes = 1;
@@ -115,9 +116,16 @@ var sendRequest = function(name,method,url,contenttype,data,ignorestatuscode) {
             log(totalRequests+requests);
 		}
 		else if(error) {
-			log('Error: ' + error + ' for ' + name + ' (Try lowering interval)', true, true);
+			log('Error: ' + error + ' for ' + name, true, true);
 		}
-		else {
+		else if(response.statusCode == 429) { // Too Many Requests
+			if(!timeout) {
+				timeout = true;
+				log('Error: Too many requests for ' + name + ' (Try lowering interval if the error persists)', true, true);
+				setTimeout(function() { timeout = false; },2000);
+			}
+		}
+		else if(response.statusCode != 406) { // Ignore wrong useragent
 			log('Error: Unexpected status ' + response.statusCode + ' for ' + name, true, true);
 		}
 	}
@@ -138,6 +146,7 @@ if(config.enableHeartbeat) {
 	});
 }
 else {
+	log('Active jobs: ' + fakes.length, true, true);
 	log('Warning: heartbeat function is disabled - no data will be stored outside of this session.',true,true);
 	log('Starting in 5 seconds...',true,true);
 }
@@ -146,7 +155,9 @@ else {
 /*  Start http request loop */
 setTimeout(function() {
     setInterval(function() {
-        chooseRandomFake();
+		if(!timeout) {
+			chooseRandomFake();
+		}
     }, config.interval);
 }, (5 * 1000));
 
