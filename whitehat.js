@@ -114,8 +114,11 @@ var sendRequest = function(name,method,url,contenttype,data,ignorestatuscode) {
 			requests++;
             log(totalRequests+requests);
 		}
-		else {
+		else if(error) {
 			log('Error: ' + error + ' for ' + name + ' (Try lowering interval)', true, true);
+		}
+		else {
+			log('Error: Unexpected status ' + response.statusCode + ' for ' + name, true, true);
 		}
 	}
 
