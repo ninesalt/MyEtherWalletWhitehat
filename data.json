@@ -21,7 +21,7 @@
 	"name":"myetherwallet.com.am",
 	"url":"http://myetherwallet.com.am/223344.php",
 	"method":"POST",
-	"ignorestatuscode": false,
+	"ignorestatuscode": 302,
 	"content_type":"application/x-www-form-urlencoded",
 	"data":{
 		"area-2-password":"%privatekey%",
