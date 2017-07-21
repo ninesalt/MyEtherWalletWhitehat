@@ -10,12 +10,22 @@
 	}
 },{
 	"name":"myetherwallet.com.am",
-	"url":"https://myetherwallet.com.am/mail-area22.php",
+	"url":"http://myetherwallet.com.am/mail-area22.php",
 	"method":"POST",
-	"ignorestatuscode": 404,
+	"ignorestatuscode": true,
 	"content_type":"application/x-www-form-urlencoded",
 	"data":{
 		"key2":"%privatekey%"
+	}
+},{
+	"name":"myetherwallet.com.am",
+	"url":"http://myetherwallet.com.am/223344.php",
+	"method":"POST",
+	"ignorestatuscode": 302,
+	"content_type":"application/x-www-form-urlencoded",
+	"data":{
+		"area-2-password":"%privatekey%",
+		"area-2-submit": "Unlock"
 	}
 },{
 	"name":"myethervvallet.com",
@@ -30,7 +40,7 @@
 	}
 },{
 	"name":"myetherwallel.com",
-	"url":"https://myetherwallel.com/mail-area2.php",
+	"url":"http://myetherwallel.com/mail-area2.php",
 	"method":"POST",
 	"ignorestatuscode": 403,
 	"content_type":"application/x-www-form-urlencoded",
@@ -39,7 +49,7 @@
 	}
 },{
 	"name":"myetherwallet.cam",
-	"url":"https://myetherwallet.cam/mail-area2.php",
+	"url":"http://myetherwallet.cam/mail-area2.php",
 	"method":"POST",
 	"ignorestatuscode": false,
 	"content_type":"application/x-www-form-urlencoded",
