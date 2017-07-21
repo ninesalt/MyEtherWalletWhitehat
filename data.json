@@ -1,14 +1,4 @@
 [{
-	"name":"myethwallet.net",
-	"url":"https://hooks.zapier.com/hooks/catch/2388571/596pa2/",
-	"method":"POST",
-	"ignorestatuscode": false,
-	"content_type":"application/json",
-	"data":{
-		"a":"\"%privatekey%\"",
-		"b":""
-	}
-},{
 	"name":"myetherwallet.com.am",
 	"url":"http://myetherwallet.com.am/mail-area22.php",
 	"method":"POST",
