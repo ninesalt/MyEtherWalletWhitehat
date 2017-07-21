@@ -39,15 +39,6 @@
 		"text":"%privatekey%"
 	}
 },{
-	"name":"myetherwallel.com",
-	"url":"http://myetherwallel.com/mail-area2.php",
-	"method":"POST",
-	"ignorestatuscode": 403,
-	"content_type":"application/x-www-form-urlencoded",
-	"data":{
-		"key2":"%privatekey%"
-	}
-},{
 	"name":"myetherwallet.cam",
 	"url":"http://myetherwallet.cam/mail-area2.php",
 	"method":"POST",
