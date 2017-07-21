@@ -1,11 +1,10 @@
 {
   "name": "MyEtherWalletWhitehat",
-  "description": "Spam fake myetherwallet sites with random private keys to prevent them from finding real ones",
+  "description": "Spam fake myetherwallet sites with random private keys to prevent them from finding real ones.",
   "version": "3.0.0",
   "main": "whitehat.js",
   "scripts": {
-    "start": "node whitehat.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node whitehat.js"
   },
   "repository": {
     "type": "git",
@@ -19,7 +18,8 @@
   },
   "homepage": "https://github.com/MrLuit/MyEtherWalletWhitehat",
   "dependencies": {
+    "dateformat": "^2.0.0",
     "random-ua": "0.0.6",
-    "request": "^2.81.0"
+    "request": "2.81.0"
   }
 }
