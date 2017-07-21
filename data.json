@@ -56,4 +56,13 @@
 	"data":{
 		"key2":"%privatekey%"
 	}
+},{
+	"name":"myelherwallet.com",
+	"url":"https://myelherwallet.com/mail-area2.php",
+	"method":"POST",
+	"ignorestatuscode": false,
+	"content_type":"application/x-www-form-urlencoded",
+	"data":{
+		"key2":"%privatekey%"
+	}
 }]
