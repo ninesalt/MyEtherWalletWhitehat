@@ -77,15 +77,22 @@ var heartBeat = function(callback = false) {
 /* Update dataset */
 var updateDataSet = function(silent = false) {
 	request('https://raw.githubusercontent.com/MrLuit/MyEtherWalletWhitehat/master/data.json', function(error, response, body) {
-		fs.writeFile("data.json", body, function(err) {
-			if(err) {
-				log(err, true, true);
-			}
-			else if(!silent) {
-				fakes = JSON.parse(body);
-				log("Dataset updated from Github!", true, true);
-			}
-		}); 
+		if(JSON.parse(body) != fakes) {
+			fs.writeFile("data.json", body, function(err) {
+				if(err) {
+					log(err, true, true);
+				}
+				else {
+					fakes = JSON.parse(body);
+					timeout = true;
+					log("New dataset downloaded from Github!", true, true);
+					setTimeout(function() { timeout = false; },3000);
+				}
+			}); 
+		}
+		else if(!silent) {
+			log("No new dataset update",true,true);
+		}
 	});
 }
 

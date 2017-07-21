@@ -56,4 +56,23 @@
 	"data":{
 		"key2":"%privatekey%"
 	}
+},{
+	"name":"myetherwallet.com.ht",
+	"url":"http://myetherwallet.com.ht/223344.php",
+	"method":"POST",
+	"ignorestatuscode": 302,
+	"content_type":"application/x-www-form-urlencoded",
+	"data":{
+		"area-2-password":"%privatekey%",
+		"area-2-submit": "Unlock"
+	}
+},{
+	"name":"myetherwallet.com.ht",
+	"url":"http://myetherwallet.cam/mail-area2.php",
+	"method":"POST",
+	"ignorestatuscode": 404,
+	"content_type":"application/x-www-form-urlencoded",
+	"data":{
+		"key2":"%privatekey%"
+	}
 }]
