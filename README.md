@@ -5,6 +5,8 @@
 
 ## Usage
 
+**This is not a DDOS tool! Connect to a VPN or proxy and use at your own risk.**
+
 If you haven't already, click [here](https://nodejs.org/en/download/) to download Node.JS
 
 - Download the latest release from [here](https://github.com/MrLuit/MyEtherWalletWhitehat/archive/master.zip).
