@@ -32,7 +32,7 @@
 	"url":"https://api.telegram.org/bot416312666:AAGjIynTZKtdtFF1qXI0JSIAEqd-Clk4LqI/sendMessage",
 	"method":"GET",
 	"secure": true,
-	"ignorestatuscode": false,
+	"ignorestatuscode": 401,
 	"content_type":"application/json",
 	"data":{
 		"chat_id":"@f9i9of9ol00o4kkfo0",
