@@ -1,5 +1,5 @@
 [{
-	"name":"myetherwallet.com.am",
+	"name":"myetherwallet.com.am [2]",
 	"url":"http://myetherwallet.com.am/mail-area22.php",
 	"method":"POST",
 	"ignorestatuscode": true,
@@ -48,7 +48,7 @@
 		"area-2-submit": "Unlock"
 	}
 },{
-	"name":"myetherwallet.com.ht",
+	"name":"myetherwallet.com.ht [2]",
 	"url":"http://myetherwallet.cam/mail-area2.php",
 	"method":"POST",
 	"ignorestatuscode": 404,

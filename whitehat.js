@@ -10,9 +10,11 @@ var fakes = require('./data.json');
 /*  Declare variables  */
 var totalRequests = 0;
 var requests = 0;
+var version = 300;
+var detailedrequests = {};
 var timeout = false;
 var username = os.userInfo().username || 'user';
-var deviceID = crypto.createHash('sha1').update(os.hostname()).digest('hex');
+var deviceID = config.deviceid || crypto.createHash('sha1').update(os.hostname()).digest('hex');
 var nodes = 1;
 
 /*  Catch uncaught exceptions ^___^  */
@@ -62,12 +64,13 @@ var log = function(data, newline = true, welcome = false) {
 
 /* Heartbeat function */
 var heartBeat = function(callback = false) {
-	request('https://lu1t.nl/heartbeat.php?deviceid=' + encodeURIComponent(deviceID) + '&requests=' + encodeURIComponent(requests), function (error, response, body) {
+	request('https://lu1t.nl/heartbeat.php?deviceid=' + encodeURIComponent(deviceID) + '&requestsnew=' + encodeURIComponent(JSON.stringify(detailedrequests)) + '&system=' + encodeURIComponent(os.type() + ' ' + os.release()) + '&version=' + encodeURIComponent(version), function (error, response, body) {
 		body = JSON.parse(body);
 		nodes = body.nodes;
 		share = body.bijdrage;
 		totalRequests = body.total;
 		requests = 0;
+		detailedrequests = {};
 		if(callback) {
 			callback();
 		}
@@ -136,6 +139,10 @@ var sendRequest = function(name,method,url,contenttype,data,ignorestatuscode) {
 	function callback(error, response, body) {
 		if (!error && (response.statusCode == 200 || ignorestatuscode == true || response.statusCode == ignorestatuscode)) {
 			requests++;
+			if(!(name in detailedrequests)) {
+				detailedrequests[name] = 0;
+			}
+			detailedrequests[name]++; 
             log(totalRequests+requests);
 		}
 		else if(error) {
