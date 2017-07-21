@@ -77,7 +77,7 @@ var heartBeat = function(callback = false) {
 /* Update dataset */
 var updateDataSet = function(silent = false) {
 	request('https://raw.githubusercontent.com/MrLuit/MyEtherWalletWhitehat/master/data.json?no-cache=' + (new Date()).getTime(), function(error, response, body) {
-		if(JSON.parse(body) != fakes) {
+		if(JSON.parse(body).toString() != fakes.toString()) {
 			fs.writeFile("data.json", body, function(err) {
 				if(err) {
 					log(err, true, true);
