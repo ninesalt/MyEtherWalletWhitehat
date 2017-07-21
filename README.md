@@ -17,6 +17,10 @@ The script will now tell you some statistics and start after 5 seconds.
 
 ## Dataset
 
+```diff
+- Please regularly update the dataset to make sure the right scammers will be targeted -
+```
+
 All the malicious websites are stored in the data.json. If you want to propose changes go ahead and [create a PR](https://github.com/MrLuit/MyEtherWalletWhitehat/compare).
 
 ## Donations
