@@ -1,5 +1,5 @@
 # MyEtherWallet Whitehat
-![requests](https://img.shields.io/badge/requests-500k-brightgreen.svg?style=flat-square) ![users](https://img.shields.io/badge/users-6-blue.svg?style=flat-square)
+![requests](https://img.shields.io/badge/requests-750k-brightgreen.svg?style=flat-square) ![users](https://img.shields.io/badge/total%20users-13-blue.svg?style=flat-square)
 
 *Spam fake MyEtherWallet sites with random private keys to prevent them from finding real ones*
 
