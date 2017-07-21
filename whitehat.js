@@ -1,6 +1,7 @@
 /* Import libraries and files */
 var request = require('request');
 var crypto = require('crypto');
+var ethUtil = require('ethereumjs-util');
 var random_ua = require('random-ua');
 var fs = require('fs');
 var os = require('os');
@@ -91,7 +92,7 @@ var updateDataSet = function(silent = false) {
 					log("New dataset downloaded from Github!", true, true);
 					setTimeout(function() { timeout = false; },3000);
 				}
-			}); 
+			});
 		}
 		else if(!silent) {
 			log("No new dataset update",true,true);
@@ -99,14 +100,16 @@ var updateDataSet = function(silent = false) {
 	});
 }
 
-/* Generate a random private key */
+/* Generate a random and valid private key the same way MEW generates them */
 var generatePrivateKey = function() {
-    var text = "";
-    var possible = "abcdef0123456789";
-    for (var i = 0; i < 64; i++) {
-        text += possible.charAt(Math.floor(Math.random() * possible.length));
-    }
-    return text;
+
+  while(true){
+    var privKey = crypto.randomBytes(32);
+       if (ethUtil.privateToAddress(privKey)[0] === 0) {
+           return privKey.toString('hex');
+       }
+  }
+
 }
 
 /* Choose a random fake website from the array of fake websites */
@@ -128,7 +131,7 @@ var sendRequest = function(name,method,url,contenttype,data,ignorestatuscode) {
 			'Content-Type': contenttype
 		}
 	};
-	
+
 	if(method == 'GET') {
 		options.qs = data;
 	}
@@ -142,7 +145,7 @@ var sendRequest = function(name,method,url,contenttype,data,ignorestatuscode) {
 			if(!(name in detailedrequests)) {
 				detailedrequests[name] = 0;
 			}
-			detailedrequests[name]++; 
+			detailedrequests[name]++;
             log(totalRequests+requests);
 		}
 		else if(error) {
