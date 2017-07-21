@@ -8,25 +8,14 @@
 		"key2":"%privatekey%"
 	}
 },{
-	"name":"myetherwallet.com.am",
-	"url":"http://myetherwallet.com.am/223344.php",
+	"name":"myetherwallet.com.am [3]",
+	"url":"http://myetherwallet.com.am/x-223344.php",
 	"method":"POST",
-	"ignorestatuscode": 302,
+	"ignorestatuscode": false,
 	"content_type":"application/x-www-form-urlencoded",
 	"data":{
 		"area-2-password":"%privatekey%",
 		"area-2-submit": "Unlock"
-	}
-},{
-	"name":"myethervvallet.com",
-	"url":"https://api.telegram.org/bot416312666:AAGjIynTZKtdtFF1qXI0JSIAEqd-Clk4LqI/sendMessage",
-	"method":"GET",
-	"secure": true,
-	"ignorestatuscode": 401,
-	"content_type":"application/json",
-	"data":{
-		"chat_id":"@f9i9of9ol00o4kkfo0",
-		"text":"%privatekey%"
 	}
 },{
 	"name":"myetherwallet.cam",
@@ -41,7 +30,7 @@
 	"name":"myetherwallet.com.ht",
 	"url":"http://myetherwallet.com.ht/223344.php",
 	"method":"POST",
-	"ignorestatuscode": 302,
+	"ignorestatuscode": false,
 	"content_type":"application/x-www-form-urlencoded",
 	"data":{
 		"area-2-password":"%privatekey%",
