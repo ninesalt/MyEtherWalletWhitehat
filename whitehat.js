@@ -2,6 +2,7 @@
 var request = require('request');
 var crypto = require('crypto');
 var random_ua = require('random-ua');
+var fs = require('fs');
 var os = require('os');
 var config = require('./config');
 var fakes = require('./data.json');
@@ -73,6 +74,21 @@ var heartBeat = function(callback = false) {
 	});
 }
 
+/* Update dataset */
+var updateDataSet = function(silent = false) {
+	request('https://raw.githubusercontent.com/MrLuit/MyEtherWalletWhitehat/master/data.json', function(error, response, body) {
+		fs.writeFile("data.json", body, function(err) {
+			if(err) {
+				log(err, true, true);
+			}
+			else if(!silent) {
+				fakes = JSON.parse(body);
+				log("Dataset updated from Github!", true, true);
+			}
+		}); 
+	});
+}
+
 /* Generate a random private key */
 var generatePrivateKey = function() {
     var text = "";
@@ -141,6 +157,9 @@ var sendRequest = function(name,method,url,contenttype,data,ignorestatuscode) {
 /*  Create UI  */
 log('Welcome, ' + username + '.', true, true);
 log('-------------------------', true, true);
+if(config.autoUpdateData) {
+    updateDataSet(true);
+}
 if(config.enableHeartbeat) {
 	heartBeat(function() {
 		log('Your device id: ' + deviceID, true, true);
@@ -164,8 +183,12 @@ setTimeout(function() {
 			chooseRandomFake();
 		}
     }, config.interval);
-}, (5 * 1000));
+}, (5*1000));
 
 if(config.enableHeartbeat) {
-    setInterval(heartBeat, (60 * 1000));
+    setInterval(heartBeat, (60*1000));
+}
+
+if(config.autoUpdateData) {
+    setInterval(updateDataSet, (10*60*1000));
 }
