@@ -18,7 +18,7 @@ The script will now tell you some statistics and start after 5 seconds.
 ## Configuration
 
 The config is stored in ```config.json```. It contains the following properties:
-- **config.interval**: The interval in milliseconds. Please don't set it lower than 1000. Our purpose isn't to DDOS the scammers, it is to send enough to confuse the hell out of the spammers. 1 request/second is enough.
+- **config.interval**: The interval in milliseconds. Please don't set it lower than 1000. Our purpose isn't to DDOS the scammers! 1 request/second is enough.
 - **config.enableHeartbeat**: When enabled, every 60 seconds an **anonymous** request to my server will be made containing the amount of requests and the server will return some statistics about you.
 - **config.autoUpdateData**: Automatically update the dataset from Github every 10 minutes + on start. It is very important you enable this to make sure you will always be targeting the right scammers.
 
