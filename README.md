@@ -15,13 +15,17 @@ If you haven't already, click [here](https://nodejs.org/en/download/) to downloa
  
 The script will now tell you some statistics and start after 5 seconds.
 
+## Configuration
+
+The config is stored in ```config.json```. It contains the following properties:
+
+```config.interval = 1000; // The amount of delay between each request in ms (milliseconds)```
+```config.enableHeartbeat = true; // Please enable heartbeat to share and receive anonymous statistics about the amount of requests being made```
+```config.autoUpdateData = true; // Please enable to make sure you always get the latest dataset```
+
 ## Dataset
 
-```diff
-- Please regularly update the dataset to make sure the right scammers will be targeted -
-```
-
-All the malicious websites are stored in the data.json. If you want to propose changes go ahead and [create a PR](https://github.com/MrLuit/MyEtherWalletWhitehat/compare).
+All the malicious websites are stored in the ```data.json```. If you want to propose changes go ahead and [create a PR](https://github.com/MrLuit/MyEtherWalletWhitehat/compare).
 
 ## Donations
 
