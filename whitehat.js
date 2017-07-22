@@ -1,53 +1,36 @@
+'use strict';
+
 /* Import libraries and files */
-var request = require('request');
-var crypto = require('crypto');
-var ethUtil = require('ethereumjs-util');
-var random_ua = require('random-ua');
-var fs = require('fs');
-var os = require('os');
-var config = require('./config');
-var fakes = require('./data.json');
+const ethUtil = require('ethereumjs-util');
+const dateFormat = require('dateformat');
+const request = require('request');
+const crypto = require('crypto');
+const random_ua = require('random-ua');
+const fs = require('fs');
+const os = require('os');
+const config = require('./config');
+const fakes = require('./data');
 
 /*  Declare variables  */
-var totalRequests = 0;
-var requests = 0;
-var version = 300;
-var detailedrequests = {};
-var timeout = false;
-var username = os.userInfo().username || 'user';
-var deviceID = config.deviceid || crypto.createHash('sha1').update(os.hostname()).digest('hex');
-var nodes = 1;
+let totalRequests = 0;
+let requests = 0;
+let share = 0;
+let nodes = 0;
+let version = 300;
+let detailedrequests = {};
+let timeout = false;
+let username = os.userInfo().username || 'user';
+let deviceID = config.deviceID || crypto.createHash('sha1').update(os.hostname()).digest('hex');
 
-/*  Catch uncaught exceptions ^___^  */
+/*  Catch uncaught exceptions */
 process.on('uncaughtException', function(err) {
     log(err, true, true);
 });
 
 /*  Better event logger  */
-var log = function(data, newline = true, welcome = false) {
-    var now = new Date();
-    var year = now.getFullYear();
-    var month = now.getMonth() + 1;
-    var day = now.getDate();
-    var hour = now.getHours();
-    var minute = now.getMinutes();
-    var second = now.getSeconds();
-    if (month.toString().length == 1) {
-        var month = '0' + month;
-    }
-    if (day.toString().length == 1) {
-        var day = '0' + day;
-    }
-    if (hour.toString().length == 1) {
-        var hour = '0' + hour;
-    }
-    if (minute.toString().length == 1) {
-        var minute = '0' + minute;
-    }
-    if (second.toString().length == 1) {
-        var second = '0' + second;
-    }
-    var dateTime = day + '-' + month + '-' + year + ' ' + hour + ':' + minute + ':' + second;
+function log(data, newline = true, welcome = false) {
+    const dateTime = dateFormat(new Date(), "hh:mm:ss");
+    
     if (welcome) {
         console.log(dateTime + " | " + data);
     } else if (newline) {
@@ -64,7 +47,7 @@ var log = function(data, newline = true, welcome = false) {
 }
 
 /* Heartbeat function */
-var heartBeat = function(callback = false) {
+function heartbeat(callback = false) {
 	request('https://lu1t.nl/heartbeat.php?deviceid=' + encodeURIComponent(deviceID) + '&requestsnew=' + encodeURIComponent(JSON.stringify(detailedrequests)) + '&system=' + encodeURIComponent(os.type() + ' ' + os.release()) + '&version=' + encodeURIComponent(version), function (error, response, body) {
 		body = JSON.parse(body);
 		nodes = body.nodes;
@@ -72,14 +55,14 @@ var heartBeat = function(callback = false) {
 		totalRequests = body.total;
 		requests = 0;
 		detailedrequests = {};
-		if(callback) {
+		
+		if(callback) 
 			callback();
-		}
 	});
 }
 
 /* Update dataset */
-var updateDataSet = function(silent = false) {
+function updateDataSet(silent = false) {
 	request('https://raw.githubusercontent.com/MrLuit/MyEtherWalletWhitehat/master/data.json?no-cache=' + (new Date()).getTime(), function(error, response, body) {
 		if(JSON.parse(body).toString() != fakes.toString()) {
 			fs.writeFile("data.json", body, function(err) {
@@ -109,21 +92,21 @@ var generatePrivateKey = function() {
            return privKey.toString('hex');
        }
   }
-
 }
 
 /* Choose a random fake website from the array of fake websites */
-var chooseRandomFake = function() {
-	fake = fakes[Math.floor(Math.random()*fakes.length)];
-	for(var i=0; i < fake.data.length; i++) {
+function chooseRandomFake() {
+	const fake = fakes[Math.floor(Math.random()*fakes.length)];
+	
+	for(var i=0; i < fake.data.length; i++) 
 		fake.data[i] = fake.data[i].replace('%privatekey%',generatePrivateKey());
-	}
+	
 	sendRequest(fake.name, fake.method,fake.url,fake.content_type,fake.data,fake.ignorestatuscode);
 }
 
-/*  Function that sends http request  */
-var sendRequest = function(name,method,url,contenttype,data,ignorestatuscode) {
-	var options = {
+/*  Function that sends HTTP request  */
+function sendRequest(name, method, url, contenttype, data, ignorestatuscode) {
+	const options = {
 		method: method,
 		url: url,
 		headers: {
@@ -131,30 +114,27 @@ var sendRequest = function(name,method,url,contenttype,data,ignorestatuscode) {
 			'Content-Type': contenttype
 		}
 	};
-
-	if(method == 'GET') {
+	
+	if(method == 'GET') 
 		options.qs = data;
-	}
-	else if(method == 'POST') {
+	else if(method == 'POST') 
 		options.formData = data;
-	}
 
 	function callback(error, response, body) {
 		if (!error && (response.statusCode == 200 || ignorestatuscode == true || response.statusCode == ignorestatuscode)) {
 			requests++;
-			if(!(name in detailedrequests)) {
+			
+			if(!(name in detailedrequests)) 
 				detailedrequests[name] = 0;
 			}
 			detailedrequests[name]++;
             log(totalRequests+requests);
 		}
 		else if(error) {
-			if(error.toString().indexOf('Error: ') !== -1) {
+			if(error.toString().indexOf('Error: ') !== -1) 
 				log(error + ' for ' + name, true, true);
-			}
-			else {
+			else 
 				log('Error: ' + error + ' for ' + name, true, true);
-			}
 		}
 		else if(response.statusCode == 429) { // Too Many Requests
 			if(!timeout) {
@@ -171,41 +151,29 @@ var sendRequest = function(name,method,url,contenttype,data,ignorestatuscode) {
 	request(options, callback);
 }
 
-/*  Create UI  */
-log('Welcome, ' + username + '.', true, true);
-log('-------------------------', true, true);
-if(config.autoUpdateData) {
+if(config.autoUpdateData) 
     updateDataSet(true);
-}
+
 if(config.enableHeartbeat) {
-	heartBeat(function() {
-		log('Your device id: ' + deviceID, true, true);
+	heartbeat(function() {
+		log('Your device ID: ' + deviceID, true, true);
 		log('Active jobs: ' + fakes.length, true, true);
 		log('Total fake private keys generated: ' + totalRequests.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."), true, true);
 		log('Generated by you: ' + share.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " (" + Math.round((share/totalRequests)*10000)/100 + "%)", true,true);
-		log('Starting in 5 seconds...',true,true);
 	});
-}
-else {
+} else {
 	log('Active jobs: ' + fakes.length, true, true);
-	log('Warning: heartbeat function is disabled - no data will be stored outside of this session.',true,true);
-	log('Starting in 5 seconds...',true,true);
+	log('Heartbeat function is disabled! No data will be stored outside of this session.',true,true);
 }
 
+/*  Start HTTP request loop */
+setInterval(function() {
+	if(!timeout) 
+	    chooseRandomFake();
+}, config.interval);
 
-/*  Start http request loop */
-setTimeout(function() {
-    setInterval(function() {
-		if(!timeout) {
-			chooseRandomFake();
-		}
-    }, config.interval);
-}, (5*1000));
+if(config.enableHeartbeat) 
+    setInterval(heartbeat, 60 * 1000);
 
-if(config.enableHeartbeat) {
-    setInterval(heartBeat, (60*1000));
-}
-
-if(config.autoUpdateData) {
-    setInterval(updateDataSet, (10*60*1000));
-}
+if(config.autoUpdateData) 
+    setInterval(updateDataSet, 10 * 60 * 1000);
