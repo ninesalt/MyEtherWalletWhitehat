@@ -21,6 +21,6 @@
     "ethereumjs-util": "^5.1.2",
     "dateformat": "^2.0.0",
     "random-ua": "0.0.6",
-    "request": "2.84.0"
+    "request": "2.88.2"
   }
 }
